@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Memcat Docs</title>
+<meta name="description" content="Field manual for Memcat, the cat that was saved once and never loaded" />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/apple-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=VT323&display=swap" rel="stylesheet" />
+<style>
+:root{--night:#070c18;--deep:#0b1630;--card:#10285e;--card-2:#0a1a40;--slot:#0d1a36;--line:#2a4a8a;--lime:#b6e83c;--lime-dim:#7fa32a;--lime-glow:rgba(182,232,60,.55);--cream:#efe9d2;--dim:#8fa0bf;--ink:#050912;
+  --disp:"Chakra Petch",system-ui,sans-serif;--mono:"VT323",ui-monospace,monospace;--pad:clamp(16px,3vw,40px)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--night);color:var(--cream);font-family:var(--mono);font-size:18px;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(60% 40% at 70% 0%,rgba(30,58,122,.5),transparent 70%),repeating-linear-gradient(rgba(0,0,0,.12) 0 1px,transparent 1px 3px)}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.bev-out{border:2px solid;border-top-color:#5d86d8;border-left-color:#5d86d8;border-right-color:#071230;border-bottom-color:#071230;box-shadow:inset 1px 1px 0 0 #8fb2f5,inset -1px -1px 0 0 #1a3670}
+.bev-in{border:2px solid;border-top-color:#071230;border-left-color:#071230;border-right-color:#5d86d8;border-bottom-color:#5d86d8;box-shadow:inset 1px 1px 0 0 #1a3670,inset -1px -1px 0 0 #8fb2f5}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px var(--pad);background:rgba(7,12,24,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:13px;letter-spacing:.14em;color:var(--lime)}
+.brand img{width:28px;height:28px}
+.brand small{font-family:var(--mono);font-size:15px;letter-spacing:.06em;color:var(--dim);font-weight:400}
+.top nav{display:flex;gap:6px}
+.btn{height:34px;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:0 14px;font-family:var(--disp);font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;background:#1e3a7a;color:var(--cream)}
+.btn svg{width:13px;height:13px}
+.btn.buy{background:var(--lime);color:#1b2306}
+.btn.dark{background:var(--ink)}
+.btn.crumb{background:var(--slot);color:var(--lime)}
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(20px,4vw,56px);width:min(1120px,100%);margin:0 auto;padding:34px var(--pad) 80px;min-width:0}
+.side{position:sticky;top:78px;align-self:start;display:flex;flex-direction:column;gap:2px}
+.kick{font-family:var(--disp);font-size:9px;letter-spacing:.32em;color:var(--lime);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.kick::before{content:"";width:8px;height:8px;background:var(--lime);animation:1s steps(2,start) infinite blink}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.side a{font-size:19px;letter-spacing:.03em;padding:6px 10px;color:var(--dim);border-left:2px solid transparent}
+.side a:hover{color:var(--cream)}
+.side a.on{color:var(--lime);border-left-color:var(--lime);background:rgba(30,58,122,.35)}
+.hero{margin-bottom:22px}
+.hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(36px,6vw,64px);line-height:.95;color:#d6ff5a;-webkit-text-stroke:2px #1a2a06;paint-order:stroke fill;text-shadow:0 0 14px var(--lime-glow),3px 3px 0 #24330a}
+.hero p{margin-top:12px;font-size:19px;line-height:1.45;color:var(--dim);max-width:60ch;white-space:pre-line}
+.sec{background:linear-gradient(180deg,var(--card),var(--card-2));padding:3px;margin-bottom:16px}
+.sec .in{background:var(--slot);padding:clamp(16px,2.6vw,26px)}
+.sec h2{font-family:var(--disp);font-weight:700;font-size:clamp(20px,2.6vw,28px);line-height:1;margin-bottom:12px;color:var(--cream)}
+.sec h2 i{font-style:normal;font-family:var(--disp);font-weight:600;font-size:9px;letter-spacing:.3em;color:var(--lime);display:block;margin-bottom:8px}
+.sec p{font-size:19px;line-height:1.45;color:var(--cream);max-width:68ch}
+.sec p + p{margin-top:8px}
+.rows{display:grid;margin-top:12px;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:170px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:18px;line-height:1.4}
+.row dt{font-family:var(--disp);font-size:9px;letter-spacing:.22em;color:var(--lime-dim);padding-top:5px;font-weight:600}
+.row dd{color:var(--cream)}
+.tree{margin-top:12px;font-size:18px;line-height:1.5;color:var(--cream);white-space:pre;overflow-x:auto;padding:10px 12px;background:var(--ink)}
+.tree b{color:var(--lime);font-weight:400}
+.kbd{display:inline-block;font-family:var(--disp);font-weight:700;font-size:10px;padding:2px 7px;background:#1e3a7a;margin:0 2px}
+.ca{display:inline-flex;align-items:center;gap:10px;max-width:100%;padding:8px 12px;margin-top:12px;background:var(--ink)}
+.ca small{font-family:var(--disp);font-size:9px;letter-spacing:.2em;color:var(--lime-dim);white-space:nowrap}
+.ca b{font-weight:400;font-size:18px;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ca .copy{display:none;font:inherit;font-family:var(--disp);font-weight:700;font-size:9px;letter-spacing:.14em;padding:5px 9px;background:var(--lime);color:#1b2306;border:0;cursor:pointer}
+.ca.live{cursor:pointer}
+.ca.live .copy{display:inline-block}
+.links{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.faq{display:grid;gap:8px;margin-top:10px}
+.faq div{padding:10px 12px;background:var(--ink)}
+.faq b{font-family:var(--disp);font-weight:700;font-size:13px;display:block;margin-bottom:4px;color:var(--lime)}
+.faq span{font-size:18px;line-height:1.4}
+.foot{width:min(1120px,100%);margin:0 auto;padding:0 var(--pad) 40px;font-family:var(--disp);font-size:9px;letter-spacing:.22em;color:var(--dim);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:820px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:16px;padding-top:18px}
+  main{min-width:0}
+  .side{position:static;flex-direction:row;overflow-x:auto;gap:4px;padding-bottom:6px;scrollbar-width:none;max-width:100%}
+  .side .kick{display:none}
+  .side a{white-space:nowrap;font-size:17px;padding:5px 9px;border-left:0;background:var(--slot)}
+  .row{grid-template-columns:1fr;gap:3px}
+  .top nav .btn span{display:none}
+  .ca{width:100%;flex-wrap:wrap;gap:5px 10px}
+  .ca small{width:100%}
+  .ca b{width:100%;font-size:clamp(11px,3.2vw,18px)}
+  .ca .copy{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><img src="assets/favicon.png" alt="" /><span data-name>MEMCAT</span><small>docs</small></a>
+  <nav>
+    <a class="btn dark bev-out" href="/"><span>Room</span></a>
+    <a class="btn buy bev-out" data-link="pons" href="https://www.ponsfamily.com/launchpad"><svg><use href="#i-pons"/></svg><span>Buy</span></a>
+    <a class="btn dark bev-out" data-link="x" href="https://x.com"><svg><use href="#i-x"/></svg><span>X</span></a>
+    <span class="btn crumb bev-in">Docs</span>
+  </nav>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <span class="kick">FIELD MANUAL</span>
+    <a href="#what" class="on">What is this</a>
+    <a href="#room">The room</a>
+    <a href="#card">The card</a>
+    <a href="#site">Using the site</a>
+    <a href="#worlds">Other games</a>
+    <a href="#token">Token</a>
+    <a href="#local">Nothing is stored</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <main>
+    <div class="hero">
+      <h1><span data-name>MEMCAT</span> DOCS</h1>
+      <p>Everything on the memory card, written down once
+Read it, then leave the card in</p>
+    </div>
+
+    <section id="what" class="sec bev-out"><div class="in">
+      <h2><i>01 · OVERVIEW</i>What is <span data-name>Memcat</span></h2>
+      <p>A green low poly cat who lives in a bedroom from a life sim released in 2002. Someone saved the game on 14 March 2003 and never loaded it again. The cat is still in that save, sitting on the carpet, waiting for Continue.</p>
+      <p>The site is that memory card slot. One window, the room behind it, the cat in the middle. Every screenshot on the card is the same cat loaded into another old game by mistake.</p>
+      <div class="rows">
+        <dl class="row"><dt>CHARACTER</dt><dd>One green cat, faceted like a PlayStation 2 model, calm and unimpressed</dd></dl>
+        <dl class="row"><dt>PLACE</dt><dd>Bedroom, slot 1, room 1, the blinds are always half open</dd></dl>
+        <dl class="row"><dt>CHAIN</dt><dd>Robinhood Chain, token through the Pons launchpad</dd></dl>
+        <dl class="row"><dt>SITE</dt><dd>One page, no framework, the video behind the window is the room breathing</dd></dl>
+      </div>
+    </div></section>
+
+    <section id="room" class="sec bev-out"><div class="in">
+      <h2><i>02 · SAVE DATA</i>The room</h2>
+      <p>Nothing in it has moved since 2003. The cat counts this as a feature.</p>
+      <div class="tree"><b>room 1</b>
+├── bed           blue plaid, never slept in, the cat sits next to it
+├── desk          one CRT monitor, one lamp, one mug that is not his
+├── shelf         action figures facing the wall, they lost
+├── carpet        grey, the cat's spot is exactly in the middle
+├── window        blinds half open, the light outside never changes
+└── door          closed, opened once in 2003 to save the game</div>
+    </div></section>
+
+    <section id="card" class="sec bev-out"><div class="in">
+      <h2><i>03 · SLOT 1</i>The card</h2>
+      <div class="rows">
+        <dl class="row"><dt>SAVED</dt><dd>14 / 03 / 2003</dd></dl>
+        <dl class="row"><dt>LAST LOADED</dt><dd>never</dd></dl>
+        <dl class="row"><dt>PLAY TIME</dt><dd>Counted live on the site from the save date, the cat has been on the clock the whole time</dd></dl>
+        <dl class="row"><dt>SIZE</dt><dd>1 KB, all of it cat</dd></dl>
+        <dl class="row"><dt>DELETE</dt><dd>There is a button. It does not work. It has never worked</dd></dl>
+      </div>
+    </div></section>
+
+    <section id="site" class="sec bev-out"><div class="in">
+      <h2><i>04 · CONTROLS</i>Using the site</h2>
+      <div class="rows">
+        <dl class="row"><dt>INTRO</dt><dd>Four frames walk you into the room, about three seconds, <span class="kbd">SKIP</span> bottom right</dd></dl>
+        <dl class="row"><dt>SOUND</dt><dd>Quiet until you tap. SOUND ON at the top, or any first click, starts the music</dd></dl>
+        <dl class="row"><dt>SCREENSHOTS</dt><dd>The strip at the bottom of the window scrolls on its own and stops under the cursor. Click one to open it</dd></dl>
+        <dl class="row"><dt>GALLERY</dt><dd><span class="kbd">←</span> <span class="kbd">→</span> to move, <span class="kbd">ESC</span> or the X to close, thumbnails jump</dd></dl>
+        <dl class="row"><dt>DELETE SAVE</dt><dd>Press it as many times as you like</dd></dl>
+      </div>
+    </div></section>
+
+    <section id="worlds" class="sec bev-out"><div class="in">
+      <h2><i>05 · SCREENSHOTS.DIR</i>Other games</h2>
+      <p>Sometimes the card gets put into the wrong console. The cat ends up somewhere else, sits down, and waits to be brought back.</p>
+      <div class="tree"><b>sightings</b>
+├── 01  green hills, checkerboard cliffs, palm trees, stayed for the view
+├── 02  a foggy street where the fog is just draw distance
+├── 03  a night level with a lantern and no save point
+├── 04  an outdoor gym, pressed X to train, nothing happened
+└── 05  back in the room at night, checking the card, still on it</div>
+    </div></section>
+
+    <section id="token" class="sec bev-out"><div class="in">
+      <h2><i>06 · TOKEN</i>Token</h2>
+      <p>The token launches on Robinhood Chain through the Pons launchpad. The contract lives in the CA strip under the title bar and here. Until launch both say soon.</p>
+      <div class="ca" id="ca"><small>CONTRACT</small><b id="caVal">soon</b><button class="copy" id="caCopy">COPY</button></div>
+      <div class="links">
+        <a class="btn buy bev-out" data-link="pons" href="https://www.ponsfamily.com/launchpad"><svg><use href="#i-pons"/></svg>Buy on Pons</a>
+        <a class="btn dark bev-out" data-link="x" href="https://x.com"><svg><use href="#i-x"/></svg>X</a>
+      </div>
+      <div class="rows">
+        <dl class="row"><dt>CHAIN</dt><dd>Robinhood Chain, EVM, addresses start with 0x</dd></dl>
+        <dl class="row"><dt>LAUNCHPAD</dt><dd>Pons, ponsfamily.com. Buy opens the launchpad, and the token page once the address is in</dd></dl>
+        <dl class="row"><dt>CHART</dt><dd>DexScreener on Robinhood Chain, the link joins the site together with the contract</dd></dl>
+        <dl class="row"><dt>IN THE SAVE</dt><dd>Nothing. The cat does not know what a token is and would not load it anyway</dd></dl>
+      </div>
+    </div></section>
+
+    <section id="local" class="sec bev-out"><div class="in">
+      <h2><i>07 · PRIVACY</i>Nothing is stored</h2>
+      <p>No backend, no account, no cookies, nothing written to your browser. The only save on this page is the one from 2003, and it is not yours.</p>
+      <div class="rows">
+        <dl class="row"><dt>MUSIC</dt><dd>One CC0 chiptune, plays after your first tap, the same button mutes it</dd></dl>
+        <dl class="row"><dt>REDUCED MOTION</dt><dd>If your system asks for it, the dust, the sweep and the scrolling strip stop</dd></dl>
+      </div>
+    </div></section>
+
+    <section id="roadmap" class="sec bev-out"><div class="in">
+      <h2><i>08 · NEXT</i>Roadmap</h2>
+      <div class="tree"><b>status</b>
+├── done      the room, the card, five screenshots, this manual
+├── launch    contract in the CA strip, chart link joins the buttons
+└── after     more wrong consoles, more screenshots, the cat stays where he is</div>
+    </div></section>
+
+    <section id="faq" class="sec bev-out"><div class="in">
+      <h2><i>09 · FAQ</i>Questions</h2>
+      <div class="faq">
+        <div><b>Why is the cat green</b><span>That is the colour he was saved in. Nobody has patched it</span></div>
+        <div><b>Can I load the save</b><span>No. Continue is not on this card. You can look at the room and that is the whole game</span></div>
+        <div><b>Why does delete not work</b><span>The card is write protected, or the cat is, nobody has checked which</span></div>
+        <div><b>Is this a real game</b><span>The room looks like one, the cat looks like one, none of it shipped. It only exists on this card</span></div>
+        <div><b>What happens at launch</b><span>The contract goes into the CA strip, the buy button starts pointing at the token page, the cat does not react</span></div>
+      </div>
+    </div></section>
+  </main>
+</div>
+
+<footer class="foot"><span data-name>MEMCAT</span><span>ROBINHOOD CHAIN · PONS · SLOT 1</span></footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-pons" viewBox="0 0 64 64"><path d="M14 8h24c11 0 18 7 18 17s-7 17-18 17h-9v12a3 3 0 0 1-3 3H17a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3z" fill="currentColor"/><path d="M29 20h8c4 0 6.5 2 6.5 5s-2.5 5-6.5 5h-8z" fill="#fff" opacity=".9"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path fill="currentColor" d="M18.9 2H22l-7.1 8.1L23 22h-6.6l-5.2-6.8L5.3 22H2.1l7.6-8.7L1.5 2h6.7l4.7 6.2L18.9 2zm-1.1 18h1.8L7.3 3.9H5.4L17.8 20z"/></symbol>
+</svg>
+
+<script>
+(function(){
+  var S = window.SITE, CA = (S.CA||"SOON").trim(), HAS_CA = CA !== "SOON" && CA !== "";
+  document.querySelectorAll('[data-name]').forEach(function(e){ e.textContent = (e.closest('h2') ? S.NAME : S.NAME.toUpperCase()); });
+  document.title = S.NAME + ' Docs';
+  document.querySelectorAll('[data-link="pons"]').forEach(function(a){ a.href = HAS_CA ? window.PONS_HOME + '/' + CA : window.PONS_HOME; a.target='_blank'; a.rel='noopener'; });
+  document.querySelectorAll('[data-link="x"]').forEach(function(a){ a.href = S.X_URL || 'https://x.com'; a.target='_blank'; a.rel='noopener'; });
+  var caBox = document.getElementById('ca'), caVal = document.getElementById('caVal'), caCopy = document.getElementById('caCopy');
+  caVal.textContent = HAS_CA ? CA : 'soon';
+  if(HAS_CA){ caBox.classList.add('live'); caBox.title = CA; caBox.addEventListener('click', function(){ if(navigator.clipboard) navigator.clipboard.writeText(CA); var old = caCopy.textContent; caCopy.textContent = 'COPIED'; setTimeout(function(){ caCopy.textContent = old; }, 1100); }); }
+  var links = [].slice.call(document.querySelectorAll('.side a')), secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function spy(){ var y = window.scrollY + 120, cur = 0; secs.forEach(function(s, i){ if(s && s.offsetTop <= y) cur = i; }); links.forEach(function(a, i){ a.classList.toggle('on', i === cur); }); }
+  addEventListener('scroll', spy, { passive: true }); spy();
+})();
+</script>
+</body>
+</html>
