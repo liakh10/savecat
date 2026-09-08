@@ -1,6 +1,6 @@
 /* ================= CONFIG: единственное место, где меняются данные ================= */
 window.SITE = {
-  CA:      "SOON",                       /* строго "SOON" до лаунча, потом 0x… (42 символа) */
+  CA:      "0x2733CBA1E74bF33e63e4Cba8657Ed35997C7D5B4",                       /* строго "SOON" до лаунча, потом 0x… (42 символа) */
   X_URL:   "https://x.com/savecat_rh",
   NAME:    "Save Cat",
   TICKER:  "$SAVECAT",
