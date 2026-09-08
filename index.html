@@ -79,9 +79,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes sweepx{0%{transform:translateX(-140%)}100%{transform:translateX(420%)}}
 
 /* CA strip */
-.ca-row{display:flex;align-items:center;gap:8px;margin:3px;padding:6px 8px;background:var(--slot)}
+.ca-row{position:relative;display:flex;align-items:center;justify-content:center;margin:3px;padding:6px 44px;background:var(--slot)}
+.ca-row .tag{position:absolute;left:9px;top:50%;translate:0 -50%}
+.ca-row .cp{position:absolute;right:9px;top:50%;translate:0 -50%}
 .ca-row .tag{font-family:var(--disp);font-size:9px;letter-spacing:.2em;color:var(--lime-dim);flex:none}
-.ca-row .ca-val{font-size:17px;line-height:1;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;letter-spacing:.04em;text-align:center;padding-top:1px}
+.ca-row .ca-val{font-size:17px;line-height:1;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;letter-spacing:.04em;text-align:center;padding-top:1px}
 .ca-row .cp{display:none;font-family:var(--disp);font-size:9px;letter-spacing:.14em;color:var(--cream);flex:none}
 .ca-row.live{cursor:pointer}
 .ca-row.live .cp{display:block}
