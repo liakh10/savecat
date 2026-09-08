@@ -56,12 +56,12 @@ img{display:block;max-width:100%}
 .tree{margin-top:12px;font-size:18px;line-height:1.5;color:var(--cream);white-space:pre;overflow-x:auto;padding:10px 12px;background:var(--ink)}
 .tree b{color:var(--lime);font-weight:400}
 .kbd{display:inline-block;font-family:var(--disp);font-weight:700;font-size:10px;padding:2px 7px;background:#1e3a7a;margin:0 2px}
-.ca{display:inline-flex;align-items:center;gap:10px;max-width:100%;padding:8px 12px;margin-top:12px;background:var(--ink)}
+.ca{display:grid;justify-items:center;gap:6px;max-width:100%;padding:10px 12px;margin-top:12px;background:var(--ink);cursor:pointer}
 .ca small{font-family:var(--disp);font-size:9px;letter-spacing:.2em;color:var(--lime-dim);white-space:nowrap}
-.ca b{font-weight:400;font-size:18px;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ca .copy{display:none;font:inherit;font-family:var(--disp);font-weight:700;font-size:9px;letter-spacing:.14em;padding:5px 9px;background:var(--lime);color:#1b2306;border:0;cursor:pointer}
-.ca.live{cursor:pointer}
-.ca.live .copy{display:inline-block}
+.ca b{font-weight:400;font-size:20px;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);white-space:nowrap;max-width:100%}
+.ca.live b{font-size:clamp(12px,3.4vw,17px)}
+.ca .copy{display:inline-block;font:inherit;font-family:var(--disp);font-weight:700;font-size:9px;letter-spacing:.18em;padding:5px 10px;background:transparent;color:var(--dim);border:1px dashed var(--line);cursor:pointer}
+.ca.live .copy{color:var(--lime);border-color:var(--lime-dim)}
 .links{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
 .faq{display:grid;gap:8px;margin-top:10px}
 .faq div{padding:10px 12px;background:var(--ink)}
@@ -76,10 +76,7 @@ img{display:block;max-width:100%}
   .side a{white-space:nowrap;font-size:17px;padding:5px 9px;border-left:0;background:var(--slot)}
   .row{grid-template-columns:1fr;gap:3px}
   .top nav .btn span{display:none}
-  .ca{width:100%;flex-wrap:wrap;gap:5px 10px}
-  .ca small{width:100%}
-  .ca b{width:100%;font-size:clamp(11px,3.2vw,18px)}
-  .ca .copy{width:100%;text-align:center}
+  .ca{width:100%}
 }
 </style>
 </head>
@@ -234,7 +231,8 @@ Read it, then leave the card in</p>
   document.querySelectorAll('[data-link="x"]').forEach(function(a){ a.href = S.X_URL || 'https://x.com'; a.target='_blank'; a.rel='noopener'; });
   var caBox = document.getElementById('ca'), caVal = document.getElementById('caVal'), caCopy = document.getElementById('caCopy');
   caVal.textContent = HAS_CA ? CA : 'soon';
-  if(HAS_CA){ caBox.classList.add('live'); caBox.title = CA; caBox.addEventListener('click', function(){ if(navigator.clipboard) navigator.clipboard.writeText(CA); var old = caCopy.textContent; caCopy.textContent = 'COPIED'; setTimeout(function(){ caCopy.textContent = old; }, 1100); }); }
+  if(HAS_CA){ caBox.classList.add('live'); caBox.title = CA; }
+  caBox.addEventListener('click', function(){ var old = caCopy.textContent; if(HAS_CA){ if(navigator.clipboard) navigator.clipboard.writeText(CA); caCopy.textContent = 'COPIED'; } else { caCopy.textContent = 'NOT YET'; } setTimeout(function(){ caCopy.textContent = old; }, 1100); });
   var links = [].slice.call(document.querySelectorAll('.side a')), secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
   function spy(){ var y = window.scrollY + 120, cur = 0; secs.forEach(function(s, i){ if(s && s.offsetTop <= y) cur = i; }); links.forEach(function(a, i){ a.classList.toggle('on', i === cur); }); }
   addEventListener('scroll', spy, { passive: true }); spy();

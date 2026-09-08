@@ -79,13 +79,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes sweepx{0%{transform:translateX(-140%)}100%{transform:translateX(420%)}}
 
 /* CA strip */
-.ca-row{position:relative;display:flex;align-items:center;justify-content:center;margin:3px;padding:6px 44px;background:var(--slot)}
-.ca-row .tag{position:absolute;left:9px;top:50%;translate:0 -50%}
-.ca-row .cp{position:absolute;right:9px;top:50%;translate:0 -50%}
-.ca-row .tag{font-family:var(--disp);font-size:9px;letter-spacing:.2em;color:var(--lime-dim);flex:none}
-.ca-row .ca-val{font-size:17px;line-height:1;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;letter-spacing:.04em;text-align:center;padding-top:1px}
-.ca-row .cp{display:block;font-family:var(--disp);font-size:9px;letter-spacing:.14em;color:var(--cream);flex:none}
-.ca-row{cursor:pointer}
+.ca-row{display:grid;justify-items:center;gap:2px;margin:3px;padding:6px 8px;background:var(--slot);cursor:pointer}
+.ca-row .tag{font-family:var(--disp);font-size:9px;letter-spacing:.3em;color:var(--lime-dim)}
+.ca-row .ca-val{font-size:19px;line-height:1.1;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);white-space:nowrap;max-width:100%;letter-spacing:.04em;text-align:center}
+.ca-row.live .ca-val{font-size:clamp(12px,3.4vw,17px);letter-spacing:.01em}
+.ca-row .cp{display:block;font-family:var(--disp);font-size:9px;letter-spacing:.2em;color:var(--dim);padding:3px 8px;border:1px dashed var(--line)}
+.ca-row.live .cp{color:var(--lime);border-color:var(--lime-dim)}
 .ca-row.live:hover .cp{color:var(--lime)}
 
 .body{padding:12px 12px 10px;overflow-y:auto}
@@ -205,7 +204,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     </div>
 
     <div class="ca-row bev-in" id="ca">
-      <span class="tag">CA</span>
+      <span class="tag">CONTRACT</span>
       <span class="ca-val" id="caVal">soon</span>
       <span class="cp" id="caCopy">[ COPY ]</span>
     </div>
