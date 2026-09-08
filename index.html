@@ -58,17 +58,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes grain{0%{background-position:0 0}100%{background-position:12% 40%}}
 @keyframes sweepdown{0%{transform:translateY(-100%)}100%{transform:translateY(120%)}}
 
-/* ---------- sound prompt ---------- */
-.snd{position:fixed;left:50%;top:14px;z-index:60;translate:-50% 0;display:flex;align-items:center;gap:10px;padding:8px 16px 8px 9px;
-  background:var(--ink);color:var(--cream);border:1px solid var(--lime-dim);box-shadow:0 12px 30px rgba(0,0,0,.6);cursor:pointer;
-  opacity:0;transform:translateY(-14px);transition:opacity .5s .4s,transform .5s .4s;font-family:var(--disp);font-weight:700;font-size:11px;letter-spacing:.2em;user-select:none}
-body.open .snd{opacity:1;transform:none}
-.snd.gone{opacity:0;transform:translateY(-14px);pointer-events:none;transition-delay:0s}
-.snd i{position:relative;flex:none;width:28px;height:28px;background:var(--lime);display:grid;place-items:center;color:var(--ink)}
-.snd i svg{width:15px;height:15px}
-.snd i::after{content:"";position:absolute;inset:-6px;border:1px solid var(--lime);animation:ping 1.7s ease-out infinite}
-@keyframes ping{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.6);opacity:0}}
-.snd small{display:block;font-family:var(--mono);font-size:14px;letter-spacing:.06em;color:var(--dim);margin-top:1px;white-space:nowrap;font-weight:400}
 
 /* ---------- bevel kit (memory card browser) ---------- */
 .bev-out{border:2px solid;border-top-color:#5d86d8;border-left-color:#5d86d8;border-right-color:#071230;border-bottom-color:#071230;
@@ -90,9 +79,9 @@ body.open .snd{opacity:1;transform:none}
 @keyframes sweepx{0%{transform:translateX(-140%)}100%{transform:translateX(420%)}}
 
 /* CA strip */
-.ca-row{display:flex;align-items:center;gap:8px;margin:3px;padding:5px 8px;background:var(--slot)}
+.ca-row{display:flex;align-items:center;gap:8px;margin:3px;padding:6px 8px;background:var(--slot)}
 .ca-row .tag{font-family:var(--disp);font-size:9px;letter-spacing:.2em;color:var(--lime-dim);flex:none}
-.ca-row .ca-val{font-size:17px;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;letter-spacing:.02em}
+.ca-row .ca-val{font-size:17px;line-height:1;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;letter-spacing:.04em;text-align:center;padding-top:1px}
 .ca-row .cp{display:none;font-family:var(--disp);font-size:9px;letter-spacing:.14em;color:var(--cream);flex:none}
 .ca-row.live{cursor:pointer}
 .ca-row.live .cp{display:block}
@@ -182,7 +171,6 @@ body.open .snd{opacity:1;transform:none}
   .screen .hero{height:220px}
   .btns{grid-template-columns:1fr 1fr;grid-auto-rows:40px}
   .btns .btn.buy{grid-column:1 / -1}
-  .snd{top:12px;width:calc(100% - 20px);justify-content:center;transform:none}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
@@ -205,8 +193,6 @@ body.open .snd{opacity:1;transform:none}
   <div class="scrim"></div>
 </div>
 <div class="dust" id="dust"></div>
-
-<button class="snd" id="sndPrompt"><i><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg></i><span>SOUND ON<small>the card is quiet until you tap</small></span></button>
 
 <div class="wrap">
   <main class="win bev-out">
@@ -302,10 +288,9 @@ Nobody pressed load</p>
   (function(){ var d = Math.floor((Date.now() - new Date(2003, 2, 14)) / 864e5), y = Math.floor(d / 365.25), r = d - Math.round(y * 365.25); document.getElementById('playtime').textContent = y + ' years ' + Math.max(0, r) + ' days'; })();
 
   /* ---- sound ---- */
-  var bgm = document.getElementById('bgm'), snd = document.getElementById('sndPrompt'), armed = false, hasMusic = true;
+  var bgm = document.getElementById('bgm'), armed = false, hasMusic = true;
   bgm.addEventListener('error', function(){ hasMusic = false; });
-  function arm(){ if(armed) return; armed = true; snd.classList.add('gone'); if(hasMusic){ bgm.volume = .45; bgm.play().catch(function(){}); } }
-  snd.addEventListener('click', arm);
+  function arm(){ if(armed) return; armed = true; if(hasMusic){ bgm.volume = .45; bgm.play().catch(function(){}); } }
   document.addEventListener('pointerdown', function(){ if(!document.getElementById('intro').classList.contains('gone')) return; arm(); }, true);
   document.addEventListener('keydown', function(){ if(!document.getElementById('intro').classList.contains('gone')) return; arm(); }, true);
 
