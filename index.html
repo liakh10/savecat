@@ -84,9 +84,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .ca-row .cp{position:absolute;right:9px;top:50%;translate:0 -50%}
 .ca-row .tag{font-family:var(--disp);font-size:9px;letter-spacing:.2em;color:var(--lime-dim);flex:none}
 .ca-row .ca-val{font-size:17px;line-height:1;color:var(--lime);text-shadow:0 0 7px var(--lime-glow);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;letter-spacing:.04em;text-align:center;padding-top:1px}
-.ca-row .cp{display:none;font-family:var(--disp);font-size:9px;letter-spacing:.14em;color:var(--cream);flex:none}
-.ca-row.live{cursor:pointer}
-.ca-row.live .cp{display:block}
+.ca-row .cp{display:block;font-family:var(--disp);font-size:9px;letter-spacing:.14em;color:var(--cream);flex:none}
+.ca-row{cursor:pointer}
 .ca-row.live:hover .cp{color:var(--lime)}
 
 .body{padding:12px 12px 10px;overflow-y:auto}
@@ -281,10 +280,8 @@ Nobody pressed load</p>
   document.querySelectorAll('[data-link="x"]').forEach(function(a){ a.href = S.X_URL || 'https://x.com'; a.target='_blank'; a.rel='noopener'; });
   var caBox = document.getElementById('ca'), caVal = document.getElementById('caVal'), caCopy = document.getElementById('caCopy');
   caVal.textContent = HAS_CA ? CA : 'soon';
-  if(HAS_CA){
-    caBox.classList.add('live'); caBox.title = CA;
-    caBox.addEventListener('click', function(){ if(navigator.clipboard) navigator.clipboard.writeText(CA); var old = caCopy.textContent; caCopy.textContent = '[ COPIED ]'; setTimeout(function(){ caCopy.textContent = old; }, 1400); });
-  }
+  if(HAS_CA){ caBox.classList.add('live'); caBox.title = CA; }
+  caBox.addEventListener('click', function(){ var old = caCopy.textContent; if(HAS_CA){ if(navigator.clipboard) navigator.clipboard.writeText(CA); caCopy.textContent = '[ COPIED ]'; } else { caCopy.textContent = '[ NOT YET ]'; } setTimeout(function(){ caCopy.textContent = old; }, 1400); });
 
   /* ---- play time since the save ---- */
   (function(){ var d = Math.floor((Date.now() - new Date(2003, 2, 14)) / 864e5), y = Math.floor(d / 365.25), r = d - Math.round(y * 365.25); document.getElementById('playtime').textContent = y + ' years ' + Math.max(0, r) + ' days'; })();
