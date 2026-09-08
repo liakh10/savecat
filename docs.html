@@ -78,6 +78,7 @@ img{display:block;max-width:100%}
   .top nav .btn span{display:none}
   .ca{width:100%}
 }
+.btn[data-link="x"] svg{width:17px;height:17px}
 </style>
 </head>
 <body>
@@ -86,7 +87,7 @@ img{display:block;max-width:100%}
   <nav>
     <a class="btn dark bev-out" href="/"><span>Room</span></a>
     <a class="btn buy bev-out" data-link="pons" href="https://www.ponsfamily.com/launchpad"><svg><use href="#i-pons"/></svg><span>Buy</span></a>
-    <a class="btn dark bev-out" data-link="x" href="https://x.com"><svg><use href="#i-x"/></svg><span>X</span></a>
+    <a class="btn dark bev-out" data-link="x" href="https://x.com" aria-label="X"><svg><use href="#i-x"/></svg></a>
     <span class="btn crumb bev-in">Docs</span>
   </nav>
 </header>
@@ -175,7 +176,7 @@ Read it, then leave the card in</p>
       <div class="ca" id="ca"><small>CONTRACT</small><b id="caVal">soon</b><button class="copy" id="caCopy">COPY</button></div>
       <div class="links">
         <a class="btn buy bev-out" data-link="pons" href="https://www.ponsfamily.com/launchpad"><svg><use href="#i-pons"/></svg>Buy on Pons</a>
-        <a class="btn dark bev-out" data-link="x" href="https://x.com"><svg><use href="#i-x"/></svg>X</a>
+        <a class="btn dark bev-out" data-link="x" href="https://x.com" aria-label="X"><svg><use href="#i-x"/></svg></a>
       </div>
       <div class="rows">
         <dl class="row"><dt>CHAIN</dt><dd>Robinhood Chain, EVM, addresses start with 0x</dd></dl>

@@ -173,6 +173,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .btns .btn.buy{grid-column:1 / -1}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+.btn[data-link="x"] svg{width:18px;height:18px}
 </style>
 </head>
 <body class="crt">
@@ -232,7 +233,7 @@ Nobody pressed load</p>
 
       <div class="btns">
         <a class="btn buy bev-out" data-link="pons" href="https://www.ponsfamily.com/launchpad"><svg><use href="#i-pons"/></svg>Buy</a>
-        <a class="btn dark bev-out" data-link="x" href="https://x.com"><svg><use href="#i-x"/></svg>X</a>
+        <a class="btn dark bev-out" data-link="x" href="https://x.com" aria-label="X"><svg><use href="#i-x"/></svg></a>
         <a class="btn dark bev-out" href="/docs">Docs</a>
       </div>
       <button class="btn del bev-out" id="del">Delete save<small>are you sure</small></button>
